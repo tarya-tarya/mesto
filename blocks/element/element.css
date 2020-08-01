@@ -1,0 +1,35 @@
+@import url(./__img/element__img.css);
+@import url(./__items/element__items.css);
+@import url(./__like-button/element__like-button.css);
+@import url(./__title/element__title.css);
+
+.element {
+  background-color: #fff;
+  border-radius: 10px;
+  width: 282px;
+  height: 362px;
+  margin-right: 18px;
+  margin-bottom: 21px;
+}
+
+.element:nth-child(3n) {
+  margin-right: 0;
+}
+
+@media screen and (max-width: 915px) {
+  .element:nth-child(3n) {
+    margin-right: 18px;
+  }
+}
+
+@media screen and (max-width: 915px) {
+  .element:nth-child(2n) {
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .element:nth-child(3n) {
+    margin-right: 0;
+  }
+}

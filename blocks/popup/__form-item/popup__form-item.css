@@ -1,0 +1,15 @@
+.popup__form-item {
+  border: none;
+  width: 358px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  margin-left: 7.5%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media screen and (max-width: 550px) {
+  .popup__form-item {
+    max-width: 90%; 
+  }
+}

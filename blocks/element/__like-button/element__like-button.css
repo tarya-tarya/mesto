@@ -1,0 +1,7 @@
+.element__like-button {
+  padding-right: 21px;
+}
+
+.element__like-button:hover {
+  opacity: 0.6;
+}

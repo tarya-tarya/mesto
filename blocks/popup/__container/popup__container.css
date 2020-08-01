@@ -1,0 +1,18 @@
+.popup__container {
+  position: fixed;
+  background: #fff;
+  width: 430px;
+  height: 330px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 550px) {
+  .popup__container {
+    max-width: 80%;
+  }
+}
