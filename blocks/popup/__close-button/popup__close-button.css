@@ -4,6 +4,12 @@
   right: -42px;
   top: -42px;
   z-index: 100;
+  background-image: url(../../../images/close-button.svg);
+  width: 40.7px;
+  height: 40.7px;
+  background-size: cover;
+  border: 0;
+  background-color: transparent;
 }
 
 .popup__close-button:hover {

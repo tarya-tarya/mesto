@@ -20,9 +20,6 @@
   .element:nth-child(3n) {
     margin-right: 18px;
   }
-}
-
-@media screen and (max-width: 915px) {
   .element:nth-child(2n) {
     margin-right: 0;
   }

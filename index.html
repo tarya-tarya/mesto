@@ -10,7 +10,6 @@
     <div class="page">
       <header class="header">
         <img src="images/logo.svg" class="logo" alt="Логотип">
-        <div class="header__line"></div>
       </header>
       <main class="main">
         <section class="profile">
@@ -19,54 +18,54 @@
             <div class="profile__info">
               <div class="profile__form">
                  <h1 class="profile__name">Жак-Ив Кусто</h1>
-                 <a href="#" class="profile__edit-button"><img src="./images/Edit Button.svg" alt="Редактировать"></a>
+                 <button type="button" class="profile__edit-button" aria-label="edit"></button>
               </div>
               <p class="profile__occupation">Исследователь океана</p>
             </div>
           </div>
-          <a href="#" class="profile__add-button"></a>
+          <button type="button" aria-label="add" class="profile__add-button"></button>
         </section>
         <section class="elements">
           <div class="element">
-            <img class="element__img" src="./images/Алтай.jpg" alt="Алтай">
+            <img class="element__img" src="./images/altai.jpg" alt="Алтай">
             <div class="element__items">
                <h2 class="element__title">Алтай</h2>
-               <a href="#"  class="element__like-button"><img src="images/Like Button.svg" alt="Нравится"></a>
+               <button type="button" class="element__like-button" aria-label="like"></button>
             </div>
           </div>
           <div class="element">
-            <img class="element__img" src="./images/Байкал.jpg" alt="Байкал">
+            <img class="element__img" src="./images/baikal.jpg" alt="Байкал">
             <div class="element__items">
               <h2 class="element__title">Байкал</h2>
-              <a href="#"  class="element__like-button"><img src="images/Like Button.svg" alt="Нравится"></a>
+              <button type="button" class="element__like-button" aria-label="like"></button>
             </div>
           </div>
           <div class="element">
-            <img class="element__img" src="./images/Москва.jpg" alt="Москва">
+            <img class="element__img" src="./images/moscow.jpg" alt="Москва">
             <div class="element__items">
               <h2 class="element__title">Москва</h2>
-              <a href="#"  class="element__like-button"><img src="images/Like Button.svg" alt="Нравится"></a>
+              <button type="button" class="element__like-button" aria-label="like"></button>
             </div>  
           </div>
           <div class="element">
-            <img class="element__img" src="./images/Крым.jpg" alt="Крым">
+            <img class="element__img" src="./images/krimea.jpg" alt="Крым">
             <div class="element__items">
               <h2 class="element__title">Крым</h2>
-              <a href="#"  class="element__like-button"><img src="images/Like Button.svg" alt="Нравится"></a>
+              <button type="button" class="element__like-button" aria-label="like"></button>
              </div> 
           </div>
           <div class="element">
-            <img class="element__img" src="./images/Ладога.jpg" alt="Карелия">
+            <img class="element__img" src="./images/karel.jpg" alt="Карелия">
             <div class="element__items">
                <h2 class="element__title">Карелия</h2>
-               <a href="#"  class="element__like-button"><img src="images/Like Button.svg" alt="Нравится"></a>
+               <button type="button" class="element__like-button" aria-label="like"></button>
              </div>  
           </div>
           <div class="element">
-            <img class="element__img" src="./images/Петербург.jpg" alt="Петербург">
+            <img class="element__img" src="./images/st-p.jpg" alt="Петербург">
             <div class="element__items">
                <h2 class="element__title">Санкт-Петербург</h2>
-               <a href="#"  class="element__like-button"><img src="images/Like Button.svg" alt="Нравится"></a>
+               <button type="button" class="element__like-button" aria-label="like"></button>
             </div>   
           </div>
         </section>
@@ -77,12 +76,14 @@
     </div>
 
     <div class="popup">
-      <form class="popup__container">
-        <a href="#" class="popup__close-button"><img src="./images/Close Button.svg" alt="Закрыть"></a>
+      <form class="popup__container" name="form">
+        <button type="button" aria-label="close" class="popup__close-button"></button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <input type="text" class="popup__form-item popup__name" required>
-        <input type="text" class="popup__form-item popup__job" required>
-        <input type="submit" class="popup__submit-button" value="Сохранить">
+        <input type="text" class="popup__form-item popup__form-item_type_name" name="input-name"
+               placeholder="Эрнесто Рафаэль Гевара Линч де ла Серна" required>
+        <input type="text" class="popup__form-item popup__form-item_type_job" name="input-job"
+               placeholder="Владелец заводов, газет, пароходов" required>
+        <button type="submit" class="popup__submit-button">Сохранить</button>
       </form>
     </div>
     <script src="scripts/main.js"></script>
