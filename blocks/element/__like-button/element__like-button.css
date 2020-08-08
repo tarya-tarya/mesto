@@ -7,6 +7,7 @@
   background-repeat: no-repeat;
   border: 0;
   background-color: #fff;
+  cursor: pointer;
 }
 
 .element__like-button:hover {
