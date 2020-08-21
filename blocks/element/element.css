@@ -2,6 +2,8 @@
 @import url(./__items/element__items.css);
 @import url(./__like-button/element__like-button.css);
 @import url(./__title/element__title.css);
+@import url(./delete-button/element__delete-button.css);
+@import url(./__like-button/_status_active/element__like-button_status_active.css);
 
 .element {
   background-color: #fff;
@@ -10,6 +12,7 @@
   height: 362px;
   margin-right: 18px;
   margin-bottom: 21px;
+  position: relative;
 }
 
 .element:nth-child(3n) {

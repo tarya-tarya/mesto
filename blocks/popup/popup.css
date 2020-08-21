@@ -6,7 +6,6 @@
 @import url(./__title/popup__title.css);
 
 .popup {
-  display: none;
   position: fixed;
   top: 0;
   right: 0;
@@ -15,4 +14,7 @@
   background: rgba(0, 0, 0, 0.5);
   z-index: 100;
   font-family: 'Inter', 'Arial', sans-serif;
+  opacity: 0;
+  visibility: hidden;
+  transition: visibility 0.5s, opacity 0.5s linear;
 }
