@@ -13,6 +13,8 @@ function togglePopup(item) {
 
 function openPopup(event) {
   togglePopup(popup);
+  nameInput.value = profileName.textContent;
+  jobInput.value = profileOccupation.textContent;
 }
 
 function formSubmitHandler(evt) {
@@ -118,7 +120,7 @@ const addNewElement = evt => {
 
   elementsContainer.prepend(newElement(newCard));
   
-  newPopupClose();
+  togglePopup(newPopup);
 }
 
 placeForm.addEventListener('submit', addNewElement);
