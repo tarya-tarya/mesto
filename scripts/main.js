@@ -6,15 +6,26 @@ const nameInput = formElement.querySelector('.popup__form-item_type_name');
 const jobInput = formElement.querySelector('.popup__form-item_type_job');
 const profileName = document.querySelector('.profile__name');
 const profileOccupation = document.querySelector('.profile__occupation');
+const imgPopup = document.querySelector('.img-popup');
 
 function togglePopup(item) {
   item.classList.toggle('popup_opened')
+}
+
+function escapePopup (item) {
+  document.addEventListener('keydown', function(event) {
+    if(event.key === 'Escape') {
+      item.classList.remove('popup_opened')
+    }
+  });
 }
 
 function openPopup(event) {
   togglePopup(popup);
   nameInput.value = profileName.textContent;
   jobInput.value = profileOccupation.textContent;
+
+  escapePopup(popup);
 }
 
 function formSubmitHandler(evt) {
@@ -34,6 +45,7 @@ const newPopupCloseButton = newPopup.querySelector('.popup-new__close-button');
 
 function openNewPopup(event) {
   togglePopup(newPopup);
+  escapePopup(newPopup);
 }
 
 const initialCards = [
@@ -82,12 +94,12 @@ const newElement = card => {
 
   likeBtn.addEventListener('click', iLikeU);
 
-  const imgPopup = document.querySelector('.img-popup');
-
   function imgPopupOpen(event) {
     togglePopup(imgPopup);
     imgPopup.querySelector('.img-popup__pic').src = card.link;
     imgPopup.querySelector('.img-popup__text').textContent = card.name;
+
+    escapePopup(imgPopup);
   }
 
   elementImage.addEventListener('click', imgPopupOpen);
@@ -96,7 +108,7 @@ const newElement = card => {
     const deleted = event.target.closest('.element')
 
     deleted.remove() 
-  
+    
   })
 
   return Element;
@@ -133,3 +145,9 @@ document.querySelectorAll('.popup__close-button').forEach((button) => {
     togglePopup(event.target.closest('.popup'));
   })
 })
+
+window.onclick = function(event) {
+  if (event.target == popup || event.target == newPopup || event.target == imgPopup) {
+    togglePopup(event.target.closest('.popup'));
+  }
+}
