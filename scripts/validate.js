@@ -1,52 +1,70 @@
-  function showError (formElement, inputElement) {
-    const submitBtn = formElement.querySelector('.popup__submit-button');
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    submitBtn.setAttribute('disabled', "");
-    submitBtn.classList.add('popup__submit-button_status_disabled');
-    errorElement.classList.add('popup__error-text_status_visible');
-  }
+const formElements = {
+  formElement: '.popup__container',
+  inputElement: '.popup__form-item',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_status_disabled',
+  inputErrorClass: 'popup__form-item_type_error',
+  errorClass: 'popup__error-text_status_visible'
+}; 
 
-  function hideError (formElement, inputElement) {
-    const submitBtn = formElement.querySelector('.popup__submit-button');
-    const errorElement = formElement.querySelector(`#${inputElement.id}-error`);
-    submitBtn.removeAttribute('disabled', "");
-    submitBtn.classList.remove('popup__submit-button_status_disabled');
-    errorElement.classList.remove('popup__error-text_status_visible');
-  }
-  
-  const checkInputValidity = (formElement, inputElement, ...rest) => {
-    if (!inputElement.validity.valid) {
-      showError(formElement, inputElement);
-    } else {
-      hideError(formElement, inputElement);
-    }
+function showError(formElement, inputElement, elementList) {
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`)
+  inputElement.classList.add(elementList.inputErrorClass);
+  errorElement.classList.add(elementList.errorClass);
+  errorElement.textContent = inputElement.validationMessage; 
+}; 
+
+function hideError(formElement, inputElement, elementList) {
+  const errorElement = formElement.querySelector(`#${inputElement.id}-error`)
+  inputElement.classList.remove(elementList.inputErrorClass);
+  errorElement.classList.remove(elementList.errorClass);
+  errorElement.textContent = '';
+}; 
+
+function checkInputValidity(formElement, inputElement, elementList) {
+  if(!inputElement.validity.valid) {
+    showError(formElement, inputElement, elementList);
+  } else {
+    hideError(formElement, inputElement, elementList);
   };
-  
-  const setEventListeners = (formElement, {inputSelector, submitButtonSelector, ...rest}) => { 
-    const inputList = Array.from(document.querySelectorAll('.popup__form-item'));
-    inputList.forEach((inputElement) => {
-      inputElement.addEventListener('input', function() {
-        checkInputValidity(formElement, inputElement);
-      });
-    });
 };
 
-const enableValidation = ({formSelector, ...rest}) => {
-  const getFormList = Array.from(document.querySelectorAll(formSelector));
-
-  getFormList.forEach((formElement) => {
-    formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
+function setEventListeners(formElement, elementList) {
+  const inputList = Array.from(formElement.querySelectorAll(elementList.inputElement));
+  const submitBtn = formElement.querySelector(elementList.submitButtonSelector);
+  toggleButtonState(inputList, submitBtn, elementList);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', () => {
+      checkInputValidity(formElement, inputElement, elementList);
+      toggleButtonState(inputList, submitBtn, elementList);
     });
-    setEventListeners(formElement, rest);
   });
 };
 
-enableValidation({
-  formSelector: '.popup__container',
-  inputSelector: '.popup__form-item',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_status_disabled',
-  inputErrorClass: 'popup__error-text',
-  errorClass: 'popup__error-text_status_visible',
-});
+function enableValidation(elementList) {
+  const formList = Array.from(document.querySelectorAll(elementList.formElement));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', (evt) => {
+      evt.preventDefault();
+    });
+    setEventListeners(formElement, elementList);
+  });
+};
+
+function hasInvalidInput(inputList) {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+};
+
+function toggleButtonState(inputList, submitButtonSelector, elementList) {
+  if(hasInvalidInput(inputList)) {
+    submitButtonSelector.classList.add(elementList.inactiveButtonClass);
+    submitButtonSelector.setAttribute('disabled', '');
+  } else {
+    submitButtonSelector.classList.remove(elementList.inactiveButtonClass);
+    submitButtonSelector.removeAttribute('disabled', '');
+  };
+};
+
+enableValidation(formElements);

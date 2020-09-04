@@ -39,10 +39,10 @@
         <h2 class="popup__title">Редактировать профиль</h2>
         <input type="text" id="name" class="popup__form-item popup__form-item_type_name" name="input-name"
                placeholder="Эрнесто Рафаэль Гевара Линч де ла Серна" minlength="2" maxlength="40" required>
-        <span class="popup__error-text" id="name-error">Вы пропустили это поле</span>
+        <span class="popup__error-text" id="name-error"></span>
         <input type="text" id="job" class="popup__form-item popup__form-item_type_job" name="input-job"
                placeholder="Владелец заводов, газет, пароходов" minlength="2" maxlength="200" required>
-        <span class="popup__error-text" id="job-error">Вы пропустили это поле</span>
+        <span class="popup__error-text" id="job-error"></span>
         <button type="submit" class="popup__submit-button">Сохранить</button>
       </form>
     </div>
@@ -53,17 +53,17 @@
         <h2 class="popup__title">Новое место</h2>
         <input type="text" id="place" class="popup__form-item popup__form-item_type_place" name="input-place"
                placeholder="Название" minlength="1" maxlength="30" required>
-        <span class="popup__error-text" id="place-error">Вы пропустили это поле</span>       
+        <span class="popup__error-text" id="place-error"></span>       
         <input type="url" id="link" class="popup__form-item popup__form-item_type_link" name="input-link"
                placeholder="Ссылка на картинку" required> 
-        <span class="popup__error-text" id="link-error">Введите адрес сайта</span>
+        <span class="popup__error-text" id="link-error"></span>
         <button type="submit" class="popup__submit-button popup-new__submit-button">Сохранить</button>            
       </form>
     </div>
 
     <div class="popup img-popup">
       <div class="img-popup__container">
-        <img class="img-popup__pic"> 
+        <img class="img-popup__pic" alt=""> 
         <button type="button" aria-label="close" class="popup__close-button"></button>
         <p class="img-popup__text"></p>
       </div>
@@ -80,6 +80,7 @@
       </div>
     </template>
     
+    <script src="scripts/cards.js"></script>
     <script src="scripts/main.js"></script>
     <script src="scripts/validate.js"></script>
   </body>

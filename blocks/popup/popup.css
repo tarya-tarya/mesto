@@ -7,6 +7,7 @@
 @import url(./__error-text/popup__error-text.css);
 @import url(./__error-text/_status_visible/popup__error-text_status_visible.css);
 @import url(./__submit-button/_status_disabled/popup__submit-button_status_disabled.css);
+@import url(./__form-item/_type_error/popup__form-item_type_error.css);
 
 .popup {
   position: fixed;
