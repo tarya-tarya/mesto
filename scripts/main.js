@@ -8,26 +8,27 @@ const jobInput = formElement.querySelector('.popup__form-item_type_job');
 const profileName = document.querySelector('.profile__name');
 const profileOccupation = document.querySelector('.profile__occupation');
 const imgPopup = document.querySelector('.img-popup');
+const popupList = document.querySelectorAll('.popup');
+const popupOpened = document.querySelector('.popup_opened');
 
 function openModalWindow(item) {
   item.classList.add('popup_opened');
+  document.addEventListener('keydown', escapePopup);
 };
 
 function closeModalWindow(item) {
   item.classList.remove('popup_opened');
+  document.removeEventListener('keyup', escapePopup);
 };
 
-function escapePopup (item) {
-  document.addEventListener('keydown', function(event) {
-    if(event.key === 'Escape') {
-      item.classList.remove('popup_opened')
-    }
-  });
-  document.removeEventListener('keydown', function(event) {
-    if(event.key === 'Escape') {
-      item.classList.remove('popup_opened')
-    }
-  })
+function escapePopup (evt) {
+  if(evt.key === "Escape") {
+    popupList.forEach((popupOpened) => {
+      if(popupOpened.classList.contains('popup_opened')) {
+        closeModalWindow(popupOpened);
+      }
+    })
+  }
 }
 
 function openPopup(event) {
@@ -78,10 +79,11 @@ const newElement = card => {
   likeBtn.addEventListener('click', setLike);
 
   function openImgPopup(event) {
+    const imgPopupPicture = imgPopup.querySelector('.img-popup__pic');
     openModalWindow(imgPopup);
-    imgPopup.querySelector('.img-popup__pic').src = card.link;
+    imgPopupPicture.src = card.link;
     imgPopup.querySelector('.img-popup__text').textContent = card.name;
-    imgPopup.querySelector('.img-popup__pic').alt = card.name;
+    imgPopupPicture.alt = card.name;
 
     escapePopup(imgPopup);
   }
