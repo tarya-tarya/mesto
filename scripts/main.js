@@ -1,3 +1,11 @@
+import {
+  Card
+} from './Card.js';
+import {
+  settings,
+  FormValidator
+} from './FormValidator.js';
+
 const popup = document.querySelector('.popup');
 const popupOpenButton = document.querySelector('.profile__edit-button');
 const popupCloseButton = popup.querySelector('.popup__close-button');
@@ -11,7 +19,7 @@ const imgPopup = document.querySelector('.img-popup');
 const popupList = document.querySelectorAll('.popup');
 const popupOpened = document.querySelector('.popup_opened');
 
-function openModalWindow(item) {
+export function openModalWindow(item) {
   item.classList.add('popup_opened');
   document.addEventListener('keydown', escapePopup);
 };
@@ -21,10 +29,10 @@ function closeModalWindow(item) {
   document.removeEventListener('keyup', escapePopup);
 };
 
-function escapePopup (evt) {
-  if(evt.key === "Escape") {
+export function escapePopup(evt) {
+  if (evt.key === "Escape") {
     popupList.forEach((popupOpened) => {
-      if(popupOpened.classList.contains('popup_opened')) {
+      if (popupOpened.classList.contains('popup_opened')) {
         closeModalWindow(popupOpened);
       }
     })
@@ -51,8 +59,9 @@ function formSubmitHandler(evt) {
 formElement.addEventListener('submit', formSubmitHandler);
 
 const newPopup = document.querySelector('.popup-new');
-const newPopupOpenButton = document.querySelector('.profile__add-button'); 
+const newPopupOpenButton = document.querySelector('.profile__add-button');
 const newPopupCloseButton = newPopup.querySelector('.popup-new__close-button');
+
 
 function openNewPopup(event) {
   openModalWindow(newPopup);
@@ -61,69 +70,38 @@ function openNewPopup(event) {
 
 const elementsContainer = document.querySelector('.elements');
 
-const newElement = card => {
-  const element = document.querySelector('#element-template').content.cloneNode(true);
+initialCards.forEach((item) => {
+  const card = new Card(item, '.template');
+  const cardElement = card.generateCard();
 
-  const elementImage = element.querySelector('.element__img');
-
-  element.querySelector('.element__title').textContent = card.name; 
-  elementImage.src = card.link;
-  elementImage.alt = card.name;
-
-  const likeBtn = element.querySelector('.element__like-button');
-
-  function setLike() {
-    likeBtn.classList.toggle('element__like-button_status_active');
-  }
-
-  likeBtn.addEventListener('click', setLike);
-
-  function openImgPopup(event) {
-    const imgPopupPicture = imgPopup.querySelector('.img-popup__pic');
-    openModalWindow(imgPopup);
-    imgPopupPicture.src = card.link;
-    imgPopup.querySelector('.img-popup__text').textContent = card.name;
-    imgPopupPicture.alt = card.name;
-
-    escapePopup(imgPopup);
-  }
-
-  elementImage.addEventListener('click', openImgPopup);
-
-  element.querySelector('.element__delete-button').addEventListener('click', event => {
-    const deleted = event.target.closest('.element')
-    deleted.remove() 
-  })
-
-  return element;
-}
-
-function renderCard(newElement) {
-  elementsContainer.append(newElement); 
-}
-
-initialCards.forEach((card) => { 
-  renderCard(newElement(card));
+  elementsContainer.append(cardElement);
 });
 
-const place = document.querySelector('.popup__form-item_type_place'); 
+const place = document.querySelector('.popup__form-item_type_place');
 const link = document.querySelector('.popup__form-item_type_link');
-const placeForm = document.querySelector('.popup-new__container'); 
+const placeForm = document.querySelector('.popup-new__container');
 
 const addNewElement = evt => {
   evt.preventDefault();
-  
-  const placeValue = place.value; 
+
+  const placeValue = place.value;
   const linkValue = link.value;
-  const newCard = {name: placeValue, link: linkValue};
+  const newCard = {
+    name: placeValue,
+    link: linkValue
+  };
   const submitButton = placeForm.querySelector('.popup-new__submit-button')
 
-  function renderNewCard(newElement) {
-    elementsContainer.prepend(newElement);
+  const newElement = new Card(newCard, '.template');
+  const cardElement = newElement.generateCard();
+
+
+  function renderNewCard(cardElement) {
+    elementsContainer.prepend(cardElement);
   }
 
-  renderNewCard(newElement(newCard));
-  
+  renderNewCard(cardElement);
+
   closeModalWindow(newPopup);
 
   placeForm.reset();
@@ -148,3 +126,8 @@ window.onclick = function(event) {
     closeModalWindow(event.target.closest('.popup'));
   }
 }
+
+Array.from(document.forms).forEach(form => {
+  const validator = new FormValidator(settings, form);
+  validator.enableValidation();
+})
