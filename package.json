@@ -1,0 +1,38 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Проект был создан в рамках четвёртого спринта курса \"Веб-разработка\" от ЯндексПрактикум.",
+  "main": "./src/pages/index.js",
+  "scripts": {
+    "build": "webpack",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tarya-tarya/mesto.git"
+  },
+  "author": "tarya-tarya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tarya-tarya/mesto/issues"
+  },
+  "homepage": "https://github.com/tarya-tarya/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.3",
+    "@babel/preset-env": "^7.12.1",
+    "autoprefixer": "^10.0.2",
+    "babel-loader": "^8.2.1",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^5.0.1",
+    "cssnano": "^4.1.10",
+    "html-webpack-plugin": "^4.5.0",
+    "mini-css-extract-plugin": "^1.3.1",
+    "postcss-loader": "^4.1.0",
+    "webpack": "^5.6.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "core-js": "^2.6.12"
+  }
+}
