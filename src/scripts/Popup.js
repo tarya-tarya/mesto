@@ -17,10 +17,11 @@ export default class Popup {
   }
 
   _handleEscClose(event) {
-    if(event.key === this._settings.escape) {
+    if (event.key === this._settings.escape) {
       this.close();
     };
   };
+
 
   setEventListeners() {
     const closeButton = this._popupSelector.querySelector('.popup__close-button');
