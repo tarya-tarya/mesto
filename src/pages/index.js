@@ -25,13 +25,10 @@ const jobInput = formElement.querySelector('.popup__form-item_type_job');
 const profileName = document.querySelector('.profile__name');
 const profileOccupation = document.querySelector('.profile__occupation');
 const placeForm = document.querySelector('.popup-new__container');
-const placeInput = document.querySelector('.popup__form-item_type_place');
-const linkInput = document.querySelector('.popup__form-item_type_link');
 const editForm = document.querySelector('.popup-edit__container');
 const addOpenButton = document.querySelector('.profile__add-button');
 
 const containerSelector = '.elements';
-const popupSelector = '.popup';
 const imgPopupSelector = '.img-popup';
 const editPopupSelector = '.popup-edit';
 const addPopupSelector = '.popup-new';
@@ -71,28 +68,27 @@ const editPopup = new PopupWithForm({
 
 editPopup.setEventListeners();
 
-const addNewCardPopup = new PopupWithForm({
-  popupSelector: addPopupSelector,
-  handleFormSubmit: (item) => {
-    const newCard = new Card({
-        name: placeInput.value,
-        link: linkInput.value
-      },
-      '.template',
-      (name, link) => {
-        const imagePopup = new PopupWithImage(imgPopupSelector)
+const addNewCardPopup = new PopupWithForm({ 
+  popupSelector: addPopupSelector, 
+  handleFormSubmit: (item) => { 
+    const newCard = new Card( 
+      item, 
+      '.template', 
+      (name, link) => { 
+        const imagePopup = new PopupWithImage(imgPopupSelector) 
         imagePopup.open({
           link: link,
           name: name
         })
-        imagePopup.setEventListeners()
-      }
-    )
-    const newCardElement = newCard.generateCard();
+        imagePopup.setEventListeners() 
+      } 
+    ) 
+    const newCardElement = newCard.generateCard(); 
     cardsArray.addItem(newCardElement)
-    addNewCardPopup.close();
-  }
-});
+    addNewCardPopup.close(); 
+  } 
+}, 
+);
 
 addNewCardPopup.setEventListeners();
 
