@@ -5,15 +5,17 @@ export default class Popup {
       openSelector: 'popup_opened',
       escape: 'Escape'
     };
+    this._handleEscClose = this._handleEscClose.bind(this);
   }
 
   open() {
     this._popupSelector.classList.add(this._settings.openSelector);
-    document.addEventListener('keyup', this._handleEscClose.bind(this));
+    document.addEventListener('keyup', this._handleEscClose);
   }
 
   close() {
     this._popupSelector.classList.remove(this._settings.openSelector);
+    document.removeEventListener('keyup', this._handleEscClose);
   }
 
   _handleEscClose(event) {

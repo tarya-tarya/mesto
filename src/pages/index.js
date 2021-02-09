@@ -1,29 +1,25 @@
 import './index.css';
 import {
   Card
-} from '../scripts/Card.js';
+} from '../scripts/components/Card.js';
 import {
-  settings,
   FormValidator
-} from '../scripts/FormValidator.js';
+} from '../scripts/components/FormValidator.js';
 import {
   initialCards
 } from '../scripts/cards.js';
-import Popup from '../scripts/Popup.js';
-import PopupWithForm from '../scripts/PopupWithForm.js';
-import PopupWithImage from '../scripts/PopupWithImage.js';
-import Section from '../scripts/Section.js';
-import UserInfo from '../scripts/UserInfo.js';
-import {
-  values
-} from 'core-js/fn/array';
+import PopupWithForm from '../scripts/components/PopupWithForm.js';
+import PopupWithImage from '../scripts/components/PopupWithImage.js';
+import Section from '../scripts/components/Section.js';
+import UserInfo from '../scripts/components/UserInfo.js';
+import { 
+  settings 
+} from '../scripts/settings.js'
 
 const editOpenButton = document.querySelector('.profile__edit-button');
 const formElement = document.querySelector('.popup__container');
 const nameInput = formElement.querySelector('.popup__form-item_type_name');
 const jobInput = formElement.querySelector('.popup__form-item_type_job');
-const profileName = document.querySelector('.profile__name');
-const profileOccupation = document.querySelector('.profile__occupation');
 const placeForm = document.querySelector('.popup-new__container');
 const editForm = document.querySelector('.popup-edit__container');
 const addOpenButton = document.querySelector('.profile__add-button');
@@ -33,14 +29,14 @@ const imgPopupSelector = '.img-popup';
 const editPopupSelector = '.popup-edit';
 const addPopupSelector = '.popup-new';
 
+const popupWithImage = new PopupWithImage(imgPopupSelector);
+popupWithImage.setEventListeners();
+
 const addNewElement = (item) => {
   const card = new Card(
     item,
     '.template',
-    (name, link) => popupWithImage.open({
-      link: link,
-      name: name
-    }));
+    (name, link) => popupWithImage.open({ name, link }));
 
   return card.generateCard();
 }
@@ -52,10 +48,7 @@ const cardsArray = new Section({
   containerSelector
 );
 
-const popupWithImage = new PopupWithImage(imgPopupSelector);
-popupWithImage.setEventListeners();
-
-const user = new UserInfo(profileName, profileOccupation);
+const user = new UserInfo('.profile__name', '.profile__occupation');
 
 const editPopup = new PopupWithForm({
   popupSelector: editPopupSelector,
@@ -71,21 +64,8 @@ editPopup.setEventListeners();
 const addNewCardPopup = new PopupWithForm({ 
   popupSelector: addPopupSelector, 
   handleFormSubmit: (item) => { 
-    const newCard = new Card( 
-      item, 
-      '.template', 
-      (name, link) => { 
-        const imagePopup = new PopupWithImage(imgPopupSelector) 
-        imagePopup.open({
-          link: link,
-          name: name
-        })
-        imagePopup.setEventListeners() 
-      } 
-    ) 
-    const newCardElement = newCard.generateCard(); 
-    cardsArray.addItem(newCardElement)
-    addNewCardPopup.close(); 
+    cardsArray.addItem(addNewElement(item));
+    addNewCardPopup.close();
   } 
 }, 
 );
