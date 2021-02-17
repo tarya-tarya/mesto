@@ -1,9 +1,25 @@
 export class Card {
-  constructor(data, templateSelector, handleCardClick) {
-    this._name = data.name;
-    this._link = data.link;
+  constructor({
+    name,
+    link,
+    likes = [],
+    _id,
+    owner
+  }, templateSelector, 
+  {handleCardClick, 
+    handleDeleteButton}
+    , api) {
+    this._name = name;
+    this._link = link;
+    this._id = _id;
+    this._likes = likes;
+    this._owner = owner;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
+    this._handleDeleteButton = handleDeleteButton;
+    this._api = api;
+    this._activeLikeClass = '.element__like-button_status_active';
+    this._cardOwnerId = this._owner.id;
   }
 
   _getTemplate() {
@@ -16,33 +32,76 @@ export class Card {
     return cardElement;
   }
 
-  _deleteCard() {
-    this.element.remove();
+  _handleDeleteCard() {
+    this._handleDeleteButton();
   }
 
   _setLike() {
     this.element.querySelector('.element__like-button').classList.toggle('element__like-button_status_active');
   }
 
+  _setLikeCounter(quantity) {
+    this.element.querySelector('.element__counter').textContent = quantity;
+  }
+
+  _handleLike() {
+    if (!this.element.querySelector('.element__like-button').classList.contains(this._activeLikeClass)) {
+      this._api.putLike(this._id)
+      .then(res => {
+        this._setLike();
+        this._setLikeCounter(res.likes.length)
+      })
+      .catch(err => console.log(err));
+    }
+    else 
+    this._api.deleteLike(this._id)
+      .then(res => {
+        this._setLike();
+        this._setLikeCounter(res.likes.length)
+      })
+      .catch(err => console.log(err));
+  }
+
   _setEventListeners() {
     this.element.querySelector('.element__like-button').addEventListener('click', () => {
-      this._setLike()
+      this._handleLike()
     })
     this.element.querySelector('.element__delete-button').addEventListener('click', () => {
-      this._deleteCard();
+      this._handleDeleteCard();
     })
     this.element.querySelector('.element__img').addEventListener('click', () => this._handleCardClick(this._name, this._link))
   }
-
-  generateCard() {
-    this.element = this._getTemplate()
+   
+  _addData(myId) {
+    const likeButton = this.element.querySelector('.element__like-button');
     const cardImage = this.element.querySelector('.element__img');
+    const likeCounter = this.element.querySelector('.element__counter');
+
+   if (this._likes.some(item => item._id === myId)) this._setLike();
 
     this.element.querySelector('.element__title').textContent = this._name;
     cardImage.src = this._link;
     cardImage.alt = this._link;
+    this._setLikeCounter(this._likes.length)
+  }
 
-    this._setEventListeners();
+  getCardId() {
+    return this._id;
+  }
+
+  generateCard(myId) {
+    this.element = this._getTemplate()
+    this._addData(myId)
+     
+    this._deleteButton = this.element.querySelector('.element__delete-button');
+    if (myId !== this._owner._id) {
+      this._deleteButton.classList.add('element__delete-button_status_disabled');
+      this._setEventListeners(false);
+    }
+    else {
+      this._deleteButton.classList.remove('element__delete-button_status_disabled');
+      this._setEventListeners();
+    }
 
     return this.element
   }

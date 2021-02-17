@@ -4,6 +4,9 @@
 @import url(./__title/element__title.css);
 @import url(./__delete-button/element__delete-button.css);
 @import url(./__like-button/_status_active/element__like-button_status_active.css);
+@import url(./__like-container/element__like-container.css);
+@import url(./__counter/element__counter.css);
+@import url(./__delete-button/_status_disabled/element__delete-button_status_disabled.css);
 
 .element {
   background-color: #fff;
