@@ -18,7 +18,7 @@ export class Card {
     this._handleCardClick = handleCardClick;
     this._handleDeleteButton = handleDeleteButton;
     this._api = api;
-    this._activeLikeClass = '.element__like-button_status_active';
+    this._activeLikeClass = 'element__like-button_status_active';
     this._cardOwnerId = this._owner.id;
   }
 
@@ -36,7 +36,7 @@ export class Card {
     this._handleDeleteButton();
   }
 
-  _setLike() {
+  _toggleLike() {
     this.element.querySelector('.element__like-button').classList.toggle('element__like-button_status_active');
   }
 
@@ -48,7 +48,7 @@ export class Card {
     if (!this.element.querySelector('.element__like-button').classList.contains(this._activeLikeClass)) {
       this._api.putLike(this._id)
       .then(res => {
-        this._setLike();
+        this._toggleLike();
         this._setLikeCounter(res.likes.length)
       })
       .catch(err => console.log(err));
@@ -56,7 +56,7 @@ export class Card {
     else 
     this._api.deleteLike(this._id)
       .then(res => {
-        this._setLike();
+        this._toggleLike();
         this._setLikeCounter(res.likes.length)
       })
       .catch(err => console.log(err));
@@ -77,7 +77,7 @@ export class Card {
     const cardImage = this.element.querySelector('.element__img');
     const likeCounter = this.element.querySelector('.element__counter');
 
-   if (this._likes.some(item => item._id === myId)) this._setLike();
+   if (this._likes.some(item => item._id === myId)) this._toggleLike();
 
     this.element.querySelector('.element__title').textContent = this._name;
     cardImage.src = this._link;

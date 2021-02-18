@@ -86,6 +86,7 @@ const addNewCardPopup = new PopupWithForm({
       }),
       true);
     })
+    addNewCardPopup.renderLoading(true);
     addNewCardPopup.close();
   }, 
 }, 
@@ -132,6 +133,7 @@ const editPopup = new PopupWithForm({
           userName: inputValues.username,
           userInfo: inputValues.userinfo
         });
+        editPopup.renderLoading(true);
         editPopup.close();
       })
       .catch(err => {
@@ -155,6 +157,7 @@ const popupUpdateAvatar = new PopupWithForm({
     api.updateAvatar(link)
       .then(() => {
         user.setUserAvatar(link);
+        popupUpdateAvatar.renderLoading(true);
         popupUpdateAvatar.close();
       })
       .catch(err => {
