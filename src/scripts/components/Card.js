@@ -5,10 +5,10 @@ export class Card {
     likes = [],
     _id,
     owner
-  }, templateSelector, 
-  {handleCardClick, 
-    handleDeleteButton}
-    , api) {
+  }, templateSelector, {
+    handleCardClick,
+    handleDeleteButton
+  }, api) {
     this._name = name;
     this._link = link;
     this._id = _id;
@@ -47,14 +47,13 @@ export class Card {
   _handleLike() {
     if (!this.element.querySelector('.element__like-button').classList.contains(this._activeLikeClass)) {
       this._api.putLike(this._id)
-      .then(res => {
-        this._toggleLike();
-        this._setLikeCounter(res.likes.length)
-      })
-      .catch(err => console.log(err));
-    }
-    else 
-    this._api.deleteLike(this._id)
+        .then(res => {
+          this._toggleLike();
+          this._setLikeCounter(res.likes.length)
+        })
+        .catch(err => console.log(err));
+    } else
+      this._api.deleteLike(this._id)
       .then(res => {
         this._toggleLike();
         this._setLikeCounter(res.likes.length)
@@ -71,13 +70,13 @@ export class Card {
     })
     this.element.querySelector('.element__img').addEventListener('click', () => this._handleCardClick(this._name, this._link))
   }
-   
+
   _addData(myId) {
     const likeButton = this.element.querySelector('.element__like-button');
     const cardImage = this.element.querySelector('.element__img');
     const likeCounter = this.element.querySelector('.element__counter');
 
-   if (this._likes.some(item => item._id === myId)) this._toggleLike();
+    if (this._likes.some(item => item._id === myId)) this._toggleLike();
 
     this.element.querySelector('.element__title').textContent = this._name;
     cardImage.src = this._link;
@@ -92,13 +91,12 @@ export class Card {
   generateCard(myId) {
     this.element = this._getTemplate()
     this._addData(myId)
-     
+
     this._deleteButton = this.element.querySelector('.element__delete-button');
     if (myId !== this._owner._id) {
       this._deleteButton.classList.add('element__delete-button_status_disabled');
       this._setEventListeners(false);
-    }
-    else {
+    } else {
       this._deleteButton.classList.remove('element__delete-button_status_disabled');
       this._setEventListeners();
     }

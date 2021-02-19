@@ -19,7 +19,7 @@ export default class PopupWithForm extends Popup {
     this._inputList.forEach(input => {
       this._formValues[input.name] = input.value;
     });
-    
+
     return this._formValues;
   }
 
@@ -31,7 +31,7 @@ export default class PopupWithForm extends Popup {
   }
 
   renderLoading(isLoading) {
-    if(isLoading) {
+    if (isLoading) {
       this._popupSubmitButton.textContent = "Сохранение..."
     }
   }

@@ -49,6 +49,15 @@ export class FormValidator {
         this._toggleButtonState();
       });
     });
+    this._inputList.forEach((inputElement) => {
+      this._formElement.addEventListener('reset', () => {
+        this._inputList.forEach((inputElement) => {
+          const errorElement = this._formElement.querySelector(`#${inputElement.id}-error`);
+          this._hideError(inputElement, errorElement)
+        })
+        this._toggleButtonState();
+      });
+    })
   }
 
   enableValidation() {
